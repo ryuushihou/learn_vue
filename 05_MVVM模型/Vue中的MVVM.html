@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Vue中的MVVM</title>
+        <script type="text/javascript" src="../js/vue.js">
+        </script>
+    </head>
+    <body>
+        <!--
+            MVVM模型：
+                1. M：模型（Model）：data中的数据
+                2. V：视图（View）：模版代码
+                3. VM：视图模型（ViewModel）：Vue实例
+            观察发现：
+                1.data中所有的属性，最后都出现在了vm身上。
+                2.vm身上所有的属性及Vue原型上所有的属性，在Vue模版中都可以直接使用
+        -->
+       <div id="root">
+            <h1>学校名称：{{name}}</h1>
+            <h1>学校地址：{{address}}</h1>
+            <h1>测试1：{{1+1}}</h1>
+            <h1>测试2：{{$options}}</h1>
+            <h1>测试3：{{_c}}</h1>
+       </div>
+
+       <script type="text/javascript">
+            // 创建vue实例
+            new Vue({
+                el:'#root', // el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符串
+                data:{ // data中用于存储数据，数据供el所指定的容器去使用，值我们暂时先写成一个对象。暂时哦
+                    name:'liuliuliu',
+                    address:'tokyo'
+                }
+            })
+       </script>
+    </body>
+</html>
