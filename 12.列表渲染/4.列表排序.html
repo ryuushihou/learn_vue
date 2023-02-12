@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>列表过滤</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 准备好一个容器-->
+		<div id="root">
+			<h2>列表排序</h2>
+			<input type="text" placeholder="请输入名字" v-model="keyWord">
+			<button @click="sortType=2">升序</button>
+			<button @click="sortType=1">降序</button>
+			<button @click="sortType=0">原顺序</button>
+			<ul>
+				<li v-for="(p,index) of filPerons" :key="index">
+					{{p.name}}-{{p.age}}-{{p.sex}}
+				</li>
+			</ul>
+		</div>
+
+		<script type="text/javascript">
+			Vue.config.productionTip = false
+			//用computed实现
+			const vm = new Vue({
+				el:'#root',
+				data:{
+					keyWord:'',
+					sortType:0,
+					persons:[
+						{id:'001',name:'马冬梅',age:19,sex:'女'},
+						{id:'002',name:'周冬雨',age:30,sex:'女'},
+						{id:'003',name:'周杰伦',age:40,sex:'男'},
+						{id:'004',name:'温兆伦',age:62,sex:'男'}
+					]
+				},
+				computed:{
+					filPerons(){
+						// 过滤
+						const resultArr = this.persons.filter((p)=>{
+							return p.name.indexOf(this.keyWord) !== -1
+						})
+
+						// 排序按钮触发
+						if(this.sortType){ // boolean值大于0 则是真
+							resultArr.sort((p1,p2)=>{
+								return this.sortType === 1 ? p2.age-p1.age : p1.age-p2.age
+								// p2-p1是降序 p1-p2是升序
+							})
+						}
+						return resultArr
+					}
+				}
+			}) 
+		</script>
+</html>
